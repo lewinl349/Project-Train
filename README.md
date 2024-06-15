@@ -6,11 +6,14 @@ A topdown 2D game where you try to travel as far as you can on a train!
 
 ### Built With
 
-Game Engine - Godot
-Languages - GDScript / C#
+* [![Godot Engine][Godot]][Godot-url]
+* **Languages** - GDScript / C#
 
 ## Roadmap
 
 - [X] Initialize project
 - [ ] Add player movement/interactions
 - [ ] Train + tracks
+
+[Godot]: https://img.shields.io/badge/Godot-black?style=for-the-badge&logo=godotengine
+[Godot-url]: https://godotengine.org/
