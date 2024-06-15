@@ -1,4 +1,9 @@
-# Project Train
+<h3 align="center">Project Train</h3>
+
+  <p align="center">
+     An endless game of riding on a train!
+  </p>
+</div>
  
 ## About
 
