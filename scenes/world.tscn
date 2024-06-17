@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3ue1rgdgm1ol"]
+[gd_scene load_steps=5 format=3 uid="uid://b3ue1rgdgm1ol"]
 
 [ext_resource type="Texture2D" uid="uid://fnj76ixkaok8" path="res://assets/placeholder/tilemap.png" id="1_suy1u"]
+[ext_resource type="PackedScene" uid="uid://dylvjdg046nhu" path="res://scenes/train.tscn" id="2_ym6v3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m26kt"]
 texture = ExtResource("1_suy1u")
@@ -151,7 +152,10 @@ layer_0/tile_data = PackedInt32Array(65527, 0, 4, 131063, 0, 4, 196599, 0, 4, 26
 layer_1/name = "Mid"
 layer_1/tile_data = PackedInt32Array(131064, 458752, 6, 262136, 458752, 6, 131065, 655360, 5, 131066, 655360, 5, 131067, 655360, 5, 131068, 655360, 5, 131069, 655360, 5, 131070, 655360, 5, 131071, 655360, 5, 65536, 655360, 5, 65537, 655360, 5, 65538, 655360, 5, 65539, 655360, 5, 65540, 655360, 5, 65541, 655360, 5, 65542, 655360, 5, 65543, 655360, 5, 65544, 655360, 5, 65545, 655360, 5, 65546, 655360, 5, 65547, 655360, 5, 65548, 655360, 5, 65549, 655360, 5, 65550, 655360, 5, 65551, 655360, 5, 65552, 655360, 5, 65553, 655360, 5, 65554, 655360, 5, 262137, 655360, 5, 262138, 655360, 5, 262139, 655360, 5, 262140, 655360, 5, 262141, 655360, 5, 262142, 655360, 5, 262143, 655360, 5, 196608, 655360, 5, 196609, 655360, 5, 196610, 655360, 5, 196611, 655360, 5, 196612, 655360, 5, 196613, 655360, 5, 196614, 655360, 5, 196615, 655360, 5, 196616, 655360, 5, 196617, 655360, 5, 196618, 655360, 5, 196619, 655360, 5, 196620, 655360, 5, 196621, 655360, 5, 196622, 655360, 5, 196623, 655360, 5, 196624, 655360, 5, 196625, 655360, 5, 196626, 655360, 5, 196627, 524288, 6, 65555, 524288, 6)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Train" parent="." instance=ExtResource("2_ym6v3")]
+position = Vector2(-117, 20)
+
+[node name="Camera2D" type="Camera2D" parent="Train"]
+position = Vector2(117, -20)
 zoom = Vector2(4, 4)
-process_callback = 0
 position_smoothing_enabled = true

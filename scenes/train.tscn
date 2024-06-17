@@ -1,3 +1,32 @@
-[gd_scene format=3 uid="uid://dylvjdg046nhu"]
+[gd_scene load_steps=6 format=3 uid="uid://dylvjdg046nhu"]
+
+[ext_resource type="Script" path="res://scripts/train.gd" id="1_4pwvg"]
+[ext_resource type="Texture2D" uid="uid://fnj76ixkaok8" path="res://assets/placeholder/tilemap.png" id="1_7llxs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mj2e"]
+atlas = ExtResource("1_7llxs")
+region = Rect2(102, 68, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uevb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mj2e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfea4"]
+size = Vector2(16, 14)
 
 [node name="Train" type="Area2D"]
+script = ExtResource("1_4pwvg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4uevb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_dfea4")
