@@ -158,4 +158,3 @@ position = Vector2(-117, 20)
 [node name="Camera2D" type="Camera2D" parent="Train"]
 position = Vector2(117, -20)
 zoom = Vector2(4, 4)
-position_smoothing_enabled = true
