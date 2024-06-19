@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dylvjdg046nhu"]
+[gd_scene load_steps=9 format=3 uid="uid://dylvjdg046nhu"]
 
 [ext_resource type="Script" path="res://scripts/train.gd" id="1_4pwvg"]
 [ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="2_5m76e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyyk8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7v3kg"]
 atlas = ExtResource("2_5m76e")
@@ -28,13 +30,23 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dfea4"]
 size = Vector2(43, 14)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_4146c"]
+
 [node name="Train" type="Area2D"]
 script = ExtResource("1_4pwvg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_lyyk8")
 sprite_frames = SubResource("SpriteFrames_4uevb")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 5)
 shape = SubResource("RectangleShape2D_dfea4")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -21.0
+offset_top = -17.0
+offset_right = 20.0
+offset_bottom = -12.0
+texture_under = SubResource("CanvasTexture_4146c")
