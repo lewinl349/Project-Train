@@ -1,6 +1,6 @@
 extends Area2D
 
-var SPEED = 20;
+var SPEED = 40;
 
 @onready var tilemap = get_node("../TileMap2")
 
