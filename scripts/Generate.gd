@@ -1,57 +1,67 @@
 extends Node
 
+# Class declarations
+var rng = RandomNumberGenerator.new()
+var tilemap
+
+# Tilemap Layers
 const BOTTOM = 0
 const RAILS = 1
 const OBSTACLES = 2
 const UI = 3
 
-const WIDTH = 10
-const HEIGHT = 5
-const Y_OFFSET = 2
+# Coords of the tiles in tilemap
+const GROUND_COORD = Vector2i(1,6)
+const ROCK_COORD = Vector2i(0,2)
+const RAIL_COORD = Vector2i(0,0)
 
-var ground_coord = Vector2i(1,6)
-var rock_coord = Vector2i(0,2)
-var rail_coord = Vector2i(0,0)
-var rng = RandomNumberGenerator.new()
+# Size of background
+const HEIGHT = 9
+# Size of each playable chunk
+const CHUNK_WIDTH = 10
+const CHUNK_HEIGHT = 5
+# Offset of the playable area
+var y_offset = 2
 
-var tilemap
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	tilemap = get_parent()
-	for x in range(10, 150, 10):
+	for x in range(0, CHUNK_WIDTH * 15, 10):
 		generate_background(x)
 		generate_obstacles(x)
 
 # Generate the background of the game
 func generate_background(x_offset):
-	for x in range(x_offset, x_offset + WIDTH):
-		for y in range(0, HEIGHT + 4):
+	for x in range(x_offset, x_offset + CHUNK_WIDTH):
+		for y in range(0, HEIGHT):
 			var coord = Vector2i(x,y)
-			tilemap.set_cell(BOTTOM, coord, 0, ground_coord, 0)
+			tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
 
 # Generate obstacles on top of the background
 func generate_obstacles(x_offset):
-	for x in range(x_offset, x_offset + WIDTH):
-		# 30% chance of a column spawning obstacles
-		if (roll(0.3)):
+	# Only generate obstacles on even columns
+	for x in range(x_offset, x_offset + CHUNK_WIDTH, 2):
+		# 60% chance of a column spawning obstacles
+		if (roll(0.6)):
 			# Prevent an impossible column of rocks
-			var remaining_obstacles = 2
-			for y in range(Y_OFFSET, Y_OFFSET + HEIGHT):
+			var remaining_obstacles = CHUNK_HEIGHT - 1
+			
+			for y in range(y_offset, y_offset + CHUNK_HEIGHT):
+				var coord = Vector2i(x, y)
+				
 				if (remaining_obstacles > 0):
-					# 30% chance of spawning a rock
-					var coord = Vector2i(x, y)
-					if (roll(0.3)):
-						tilemap.set_cell(OBSTACLES, coord, 0, rock_coord, 0)
+					# 20% chance of spawning a rock					
+					if (roll(0.2)):
+						tilemap.set_cell(OBSTACLES, coord, 0, ROCK_COORD, 0)
 						remaining_obstacles -= 1
-					# 8% chance of spawning a rail
-					elif (roll(0.08)):
-						tilemap.set_cell(RAILS, coord, 0, rail_coord, 0)
-						tilemap.set_cell(BOTTOM, coord, 0, ground_coord, 0)
+					
+					# 5% chance of spawning a rail
+					elif (roll(0.05)):
+						tilemap.set_cell(RAILS, coord, 0, RAIL_COORD, 0)
+						tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
 						tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)					
 
 # Returns if the function wins or loses
-# Based on the chance (0% to 100%)
+# Based on the chance 0.00 to 1.00 (0% to 100%)
 func roll(chance):
-	var roll = rng.randf_range(0, 1)
-	return (roll < chance) 
+	var outcome = rng.randf_range(0, 1)
+	return (outcome < chance) 
