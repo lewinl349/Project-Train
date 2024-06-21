@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dylvjdg046nhu"]
+
+[ext_resource type="Script" path="res://scripts/train.gd" id="1_4pwvg"]
+[ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="2_5m76e"]
+[ext_resource type="Script" path="res://scripts/ProgressBar.gd" id="3_re1kv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyyk8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v3kg"]
+atlas = ExtResource("2_5m76e")
+region = Rect2(24, 0, 48, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myg27"]
+atlas = ExtResource("2_5m76e")
+region = Rect2(72, 0, 48, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uevb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v3kg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myg27")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfea4"]
+size = Vector2(43, 14)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tl0o"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28ug6"]
+bg_color = Color(0.423195, 0.687289, 1.15514e-06, 1)
+
+[node name="Train" type="Area2D"]
+script = ExtResource("1_4pwvg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_lyyk8")
+sprite_frames = SubResource("SpriteFrames_4uevb")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 5)
+shape = SubResource("RectangleShape2D_dfea4")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -17.0
+offset_top = -39.0
+offset_right = 16.0
+offset_bottom = -14.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3tl0o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_28ug6")
+max_value = 1.0
+step = 1.0
+show_percentage = false
+script = ExtResource("3_re1kv")

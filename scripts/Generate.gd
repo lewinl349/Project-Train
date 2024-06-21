@@ -6,9 +6,11 @@ var tilemap
 
 # Tilemap Layers
 const BOTTOM = 0
-const RAILS = 1
-const OBSTACLES = 2
-const UI = 3
+const STATION = 1
+const RAILS = 2
+const OBSTACLES = 3
+const UI = 4
+
 
 # Coords of the tiles in tilemap
 const GROUND_COORD = Vector2i(1,6)
@@ -52,6 +54,8 @@ func generate_obstacles(x_offset):
 					# 20% chance of spawning a rock					
 					if (roll(0.2)):
 						tilemap.set_cell(OBSTACLES, coord, 0, ROCK_COORD, 0)
+						tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
+						tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)
 						remaining_obstacles -= 1
 					
 					# 5% chance of spawning a rail

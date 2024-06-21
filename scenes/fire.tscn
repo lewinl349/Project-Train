@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjpt75c0aw1ao"]
+
+[sub_resource type="Gradient" id="Gradient_00pj0"]
+colors = PackedColorArray(0.90445, 0.914682, 7.70092e-07, 1, 0.639216, 0, 0, 0.45098)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8258c"]
+gradient = SubResource("Gradient_00pj0")
+
+[sub_resource type="Curve" id="Curve_qs50l"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.229891), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_td2cq"]
+curve = SubResource("Curve_qs50l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sr0jf"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 8.627
+flatness = 0.927
+initial_velocity_min = 31.09
+initial_velocity_max = 36.27
+gravity = Vector3(0, -50, 0)
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_td2cq")
+color_ramp = SubResource("GradientTexture1D_8258c")
+turbulence_enabled = true
+turbulence_noise_strength = 0.63
+turbulence_noise_scale = 0.467
+
+[node name="Fire" type="GPUParticles2D"]
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_sr0jf")

@@ -1,8 +1,9 @@
 extends TileMap
 const BOTTOM = 0
-const RAILS = 1
-const OBSTACLES = 2
-const UI = 3
+const STATION = 1
+const RAILS = 2
+const OBSTACLES = 3
+const UI = 4
 
 
 

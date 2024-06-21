@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://g3x7v48nignf"]
+
+[sub_resource type="Gradient" id="Gradient_ixt0l"]
+colors = PackedColorArray(1, 1, 1, 1, 0.340339, 0.340339, 0.340339, 0.819608)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o0687"]
+gradient = SubResource("Gradient_ixt0l")
+
+[sub_resource type="Curve" id="Curve_gau7w"]
+_data = [Vector2(0, 0.342935), 0.0, 0.0, 0, 0, Vector2(0.583799, 0.675), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_d4w37"]
+curve = SubResource("Curve_gau7w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lsi3n"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.238
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, -1, 0)
+spread = 16.788
+initial_velocity_min = 40.32
+initial_velocity_max = 58.97
+gravity = Vector3(0, 25, 0)
+scale_min = 5.0
+scale_max = 12.0
+scale_curve = SubResource("CurveTexture_d4w37")
+color_ramp = SubResource("GradientTexture1D_o0687")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_lsi3n")
+lifetime = 3.0
+randomness = 0.45
