@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b3ue1rgdgm1ol"]
+[gd_scene load_steps=16 format=3 uid="uid://b3ue1rgdgm1ol"]
 
 [ext_resource type="Script" path="res://scripts/Generate.gd" id="2_chn5o"]
 [ext_resource type="Script" path="res://scripts/PlaceRail.gd" id="2_dwasv"]
 [ext_resource type="PackedScene" uid="uid://dylvjdg046nhu" path="res://scenes/train.tscn" id="2_ym6v3"]
+[ext_resource type="PackedScene" uid="uid://bjpt75c0aw1ao" path="res://scenes/fire.tscn" id="4_gx308"]
 [ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="4_ppbdj"]
 [ext_resource type="PackedScene" uid="uid://g3x7v48nignf" path="res://scenes/gpu_particles_2d.tscn" id="5_i3hqm"]
 [ext_resource type="Texture2D" uid="uid://psc72rd32agl" path="res://assets/tiles/Screenshot 2024-06-21 121629.png" id="5_uqbub"]
@@ -2006,3 +2007,6 @@ script = ExtResource("9_jh8jg")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Train"]
 occluder = SubResource("OccluderPolygon2D_xeb6r")
 occluder_light_mask = 31
+
+[node name="Fire" parent="." instance=ExtResource("4_gx308")]
+position = Vector2(71, 53)

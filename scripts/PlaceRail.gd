@@ -23,8 +23,10 @@ func _process(delta):
 	# translate global mouse coordinates to tilemap coordinate
 	global_mouse_coord = get_global_mouse_position()
 	tilemap_mouse_coord = local_to_map(global_mouse_coord)
-	if(global_mouse_coord.y > 0):
+	if(global_mouse_coord.y > 24*4):
 		show_marker()
+	else:
+		erase_cell(UI, previous_coord)
 		
 	# translate if on certrain track
 	
@@ -32,13 +34,13 @@ func _process(delta):
 func show_marker():
 	if (previous_coord != tilemap_mouse_coord):
 		set_cell(UI, tilemap_mouse_coord, 0, RAIL_COORD, 0)
-		set_cell(UI, tilemap_mouse_coord, 0, MARKER_COORD, 0)
+		#set_cell(UI, tilemap_mouse_coord, 0, MARKER_COORD, 0)
 		erase_cell(UI, previous_coord)
 		previous_coord = tilemap_mouse_coord
 	
 func _input(event):
 	
-	if(Input.is_mouse_button_pressed(1) and global_mouse_coord.y > 0):
+	if(Input.is_mouse_button_pressed(1) and global_mouse_coord.y > 24*4):
 		place()
 	
 	
@@ -50,8 +52,8 @@ func place():
 	set_cell(RAILS, tilemap_mouse_coord, 0, RAIL_COORD, 0)
 	#var cells = get_surrounding_cells(tilemap_mouse_coord)
 
-	set_cell(BOTTOM, tilemap_mouse_coord, 0, GROUND_COORD, 0)
-	set_cells_terrain_connect(BOTTOM, [tilemap_mouse_coord], 0, 1)
+	BetterTerrain.set_cell(self, BOTTOM, tilemap_mouse_coord, 0)
+	BetterTerrain.update_terrain_area(self, BOTTOM, Rect2i(tilemap_mouse_coord.x, tilemap_mouse_coord.y, tilemap_mouse_coord.x, tilemap_mouse_coord.y) )
 	
 	#var connections = []
 	#var cells = get_surrounding_cells(tilemap_mouse_coord)

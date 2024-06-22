@@ -1,11 +1,13 @@
 extends Area2D
 
-var SPEED = 0;
+var SPEED = 50;
 
 @onready var tilemap = get_node("../TileMap2")
+@onready var starting_offset = position.x
 
 func _ready():
-	print(tilemap)
+	pass
+
 
 func _process(delta):
 	#SPEED += 2 * delta

@@ -1,4 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjpt75c0aw1ao"]
+[gd_scene load_steps=10 format=3 uid="uid://bjpt75c0aw1ao"]
+
+[ext_resource type="Script" path="res://scripts/PointLight2D.gd" id="1_7gmms"]
+[ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="2_fm7hn"]
 
 [sub_resource type="Gradient" id="Gradient_00pj0"]
 colors = PackedColorArray(0.90445, 0.914682, 7.70092e-07, 1, 0.639216, 0, 0, 0.45098)
@@ -29,6 +32,39 @@ turbulence_enabled = true
 turbulence_noise_strength = 0.63
 turbulence_noise_scale = 0.467
 
+[sub_resource type="Gradient" id="Gradient_3ho5m"]
+offsets = PackedFloat32Array(0, 0.166667, 0.476667)
+colors = PackedColorArray(0.961059, 0.580233, 0, 1, 0.499448, 0.301538, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x3tl3"]
+gradient = SubResource("Gradient_3ho5m")
+width = 246
+height = 249
+fill = 1
+fill_from = Vector2(0.482906, 0.495726)
+
 [node name="Fire" type="GPUParticles2D"]
+z_index = 1
+z_as_relative = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_sr0jf")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1.14441e-05, -1.14441e-05)
+rotation = -0.000822516
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.231373)
+texture = SubResource("GradientTexture2D_x3tl3")
+texture_scale = 1.48
+script = ExtResource("1_7gmms")
+
+[node name="Timer" type="Timer" parent="PointLight2D"]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
+texture = ExtResource("2_fm7hn")
+region_enabled = true
+region_rect = Rect2(77.2792, 51.9598, 13.4299, 18.6965)
+
+[connection signal="timeout" from="PointLight2D/Timer" to="PointLight2D" method="_on_timer_timeout"]
