@@ -27,44 +27,116 @@ const BACKGROUND_MAX = 9
 # Size of background
 const HEIGHT = 9
 # Size of each playable chunk
-const CHUNK_WIDTH = 16
+const CHUNK_WIDTH = 18
 const CHUNK_HEIGHT = 5
 # Offset of the playable area
 var y_offset = 4
 
-var chunks_generated = 2
-@onready var fire = preload("res://scenes/fire.tscn")
+var chunks_generated = 1
+var partial_chunk = 0
+var fire = null
+
+var chunk_ground = []
+var chunk_station = []
+var chunk_rails = []
+var chunk_obstacles = []
 
 func _ready():
+	fire = await preload("res://scenes/fire.tscn")
 	tilemap = get_parent()
-	for x in range(16, CHUNK_WIDTH * chunks_generated, CHUNK_WIDTH):
-		generate_background(x)
-		generate_station_area(x)
-		generate_holes(x)
-		generate_obstacles(x)
-		#generate_items(x)
+	generate_items(0)
 	
-func _input(event):
-	pass
+	#for x in range(16, CHUNK_WIDTH * chunks_generated, CHUNK_WIDTH):
+		## clear chunk
+		#
+		#generate_background(x)
+		#generate_station_area(x)
+		#generate_holes(x)
+		#generate_obstacles(x)
+		##generate_items(x)
+
 	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			#var fire = preload("res://scenes/fire.tscn").instantiate()
 			#get_node("/root/World").add_child(fire)
 			#fire.set_position(vector2())
 		
+var time = 0
 func _process(delta):
-	#print("ASDASd")
-	#print(get_node("/root/World/Train").position.x)
-	if(get_node("/root/World/Train").position.x - get_node("/root/World/Train").starting_offset >= (chunks_generated-1)*CHUNK_WIDTH*24):
-		print("workinfg")
+	
+	time += delta
+	#
+	#if( time >= 15):
+		
+	var off_pos = get_node("/root/World/Train").position.x - get_node("/root/World/Train").starting_offset
+	if tilemap.position.x + (chunks_generated-1)*(CHUNK_WIDTH)*24 <= 0:
+		if(partial_chunk>=CHUNK_WIDTH and chunks_generated > 2):
+
+			#chunks_generated = 1
+			partial_chunk = 0
+			#tilemap.position.x = 0
+			#time = 0
+		##
+		chunk_ground = []
+		chunk_rails = []
+		chunk_station = []
+		chunk_obstacles = []
+		for i in range(10):
+			chunk_ground.append([])
+			chunk_rails.append([])
+			chunk_station.append([])
+			chunk_obstacles.append([])
+			for j in range(CHUNK_WIDTH):
+				chunk_ground[i].append(-1)
+				chunk_station[i].append(-1)
+				chunk_rails[i].append(-1)
+				chunk_obstacles[i].append(-1)
 		var x = (chunks_generated)*CHUNK_WIDTH
 		generate_background(x)
 		generate_station_area(x)
+		#print(chunk)
 		generate_holes(x)
 		generate_obstacles(x)
 		#generate_items(x)
-		delete_chunk((chunks_generated-2)*CHUNK_WIDTH)
 		chunks_generated+=1
+		partial_chunk = 0
+
+		print("asdasd")
+	if (tilemap.position.x + (chunks_generated-2)*(CHUNK_WIDTH)*24 + 24 * partial_chunk <= 0):
+		render_partial_chunk(chunk_ground, partial_chunk-1, BOTTOM, true)
+		render_partial_chunk(chunk_station, partial_chunk-1, STATION, false)
+		render_partial_chunk(chunk_rails, partial_chunk-1, RAILS, true)
+		render_partial_chunk(chunk_obstacles, partial_chunk, OBSTACLES, false)
+		delete_partial_chunk(partial_chunk-2 + (chunks_generated-2)*CHUNK_WIDTH)
+		delete_partial_chunk(partial_chunk-2 + (chunks_generated)*CHUNK_WIDTH)
+		#if(chunks_generated>2):
+			#var temp = chunks_generated
+			#chunks_generated = 1
+			#render_partial_chunk(chunk_ground, partial_chunk-1, BOTTOM, true)
+			#render_partial_chunk(chunk_station, partial_chunk-1, STATION, false)
+			#render_partial_chunk(chunk_rails, partial_chunk-1, RAILS, true)
+			#render_partial_chunk(chunk_obstacles, partial_chunk, OBSTACLES, false)
+			#chunks_generated = temp
+		partial_chunk += 1
 		
+func render_partial_chunk(chunk, partial_chunk, layer, connects):
+	var x_tile = (chunks_generated-1) * CHUNK_WIDTH + partial_chunk
+	
+	if(connects):
+		for y in range(1, 10):
+			#if type_string(typeof(chunk[y][partial_chunk])) == 'Vector2i':
+				#continue
+			if chunk[y][partial_chunk] == -1:
+				continue
+			var coord = Vector2i(x_tile, y)
+			#BetterTerrain.set_cell(tilemap, layer, coord, 1)
+			BetterTerrain.set_cell(tilemap, layer, coord, chunk[y][partial_chunk])
+		BetterTerrain.update_terrain_area(tilemap, layer, Rect2i(x_tile, 1, x_tile, 10))
+	else:
+		for y in range(1,10):
+			if type_string(typeof(chunk[y][partial_chunk])) != 'Vector2i':
+				continue
+			tilemap.set_cell(layer, Vector2i(x_tile,y), 0, chunk[y][partial_chunk], 0)
+	
 func generate_holes(x_offset):
 	var hole_height = rng.randi_range(0, 2)
 	var hole_y_offset = rng.randi_range(0, CHUNK_HEIGHT - hole_height)
@@ -73,37 +145,43 @@ func generate_holes(x_offset):
 		var hole_width = rng.randi_range(2, 5)
 		var hole_x_offset = rng.randi_range(0, floor(hole_width / 2))
 		for x in range(x_offset + hole_x_offset, x_offset + hole_x_offset + hole_width):
-			var coord = Vector2i(x, y)
-			BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
-			BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
+			chunk_ground[y][x-x_offset] = 2
+			#var coord = Vector2i(x, y)
+			#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
+			#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
 		
-func delete_chunk(x_offset):
-	for x in range(x_offset, x_offset + CHUNK_WIDTH):
-		for y in range(0,10):
-			tilemap.erase_cell(BOTTOM, Vector2i(x,y))
-			tilemap.erase_cell(STATION, Vector2i(x,y))
-			tilemap.erase_cell(RAILS, Vector2i(x,y))
-			tilemap.erase_cell(OBSTACLES, Vector2i(x,y))
-			tilemap.erase_cell(UI, Vector2i(x,y))
+func delete_partial_chunk(x_offset):
+	for y in range(0,10):
+		var offset = Vector2i(x_offset, y)
+		BetterTerrain.set_cell(tilemap, BOTTOM, offset, -1)
+		BetterTerrain.set_cell(tilemap, STATION, offset, -1)
+		BetterTerrain.set_cell(tilemap, OBSTACLES, offset, -1)
+		BetterTerrain.set_cell(tilemap, UI, offset, -1)
+		#tilemap.erase_cell(STATION, offset)
+		BetterTerrain.set_cell(tilemap, RAILS, offset, -1)
+		#tilemap.erase_cell(OBSTACLES, offset)
+		#tilemap.erase_cell(UI, offset)
 
 	
 func generate_items(x_offset):
 	for x in range(x_offset,x_offset + CHUNK_WIDTH,4):
 		var fire_node = fire.instantiate()
-		get_node("/root/World").add_child(fire_node)
-		print(chunks_generated, x)
-		fire_node.set_position(Vector2((chunks_generated-1)*CHUNK_WIDTH + x*24,24*2))
+		get_node("/root/World/TileMap").add_child(fire_node)
+		print(fire_node)
+		#fire_node.set_position(Vector2(300,100))
+		fire_node.set_position(Vector2((chunks_generated-1)*CHUNK_WIDTH + x*24,24*2.5))
 # Generate the background of the game
 func generate_background(x_offset):
 	for x in range(x_offset, x_offset + CHUNK_WIDTH):
 		for y in range(STATION_MAX, HEIGHT+1):
-			var coord = Vector2i(x,y)
-			tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
+			#var coord = Vector2i(x,y)
+			chunk_ground[y][x-x_offset] = 1
+			#tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
 func generate_station_area(x_offset):
 	for x in range(x_offset, x_offset + CHUNK_WIDTH):
 		for y in range(0,STATION_MAX):
-			
-			tilemap.set_cell(STATION, Vector2i(x,y+1), 0, STATION_BLOCKS[y] ,0)
+			chunk_station[y+1][x-x_offset] = STATION_BLOCKS[y]
+			#tilemap.set_cell(STATION, Vector2i(x,y+1), 0, STATION_BLOCKS[y] ,0)
 		
 # Generate obstacles on top of the background
 func generate_obstacles(x_offset):
@@ -120,22 +198,26 @@ func generate_obstacles(x_offset):
 				if (remaining_obstacles > 0):
 					# 20% chance of spawning a rock					
 					if (roll(0.2)):
-						tilemap.set_cell(OBSTACLES, coord, 0, ROCK_COORD, 0)
-						BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
-						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
+						chunk_obstacles[y][x-x_offset] = ROCK_COORD
+						chunk_ground[y][x-x_offset] = 0
+						#tilemap.set_cell(OBSTACLES, coord, 0, ROCK_COORD, 0)
+						#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
+						#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
 						remaining_obstacles -= 1
 					
 					# 5% chance of spawning a rail
 					elif (roll(0.05)):
+						chunk_rails[y][x-x_offset] = 3
+						chunk_ground[y][x-x_offset] = 0
 						#tilemap.set_cell(RAILS, coord, 0, RAIL_COORD, 0)
 						#tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
 						#tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)	
-						BetterTerrain.set_cell(tilemap, RAILS, coord, 3)
-						BetterTerrain.update_terrain_area(tilemap, RAILS, Rect2i(coord.x, coord.y, coord.x, coord.y) )
-						#var cells = get_surrounding_cells(tilemap_mouse_coord)
-
-						BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
-						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y) )
+						#BetterTerrain.set_cell(tilemap, RAILS, coord, 3)
+						#BetterTerrain.update_terrain_area(tilemap, RAILS, Rect2i(coord.x, coord.y, coord.x, coord.y) )
+						##var cells = get_surrounding_cells(tilemap_mouse_coord)
+#
+						#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
+						#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y) )
 					#elif (roll(0.2)):
 						#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
 						#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))

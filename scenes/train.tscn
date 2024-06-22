@@ -37,6 +37,7 @@ script = ExtResource("1_4pwvg")
 material = SubResource("ShaderMaterial_lyyk8")
 sprite_frames = SubResource("SpriteFrames_4uevb")
 autoplay = "default"
+frame_progress = 0.321499
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 5)

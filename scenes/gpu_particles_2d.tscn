@@ -7,7 +7,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0.340339, 0.340339, 0.340339, 0.819608)
 gradient = SubResource("Gradient_ixt0l")
 
 [sub_resource type="Curve" id="Curve_gau7w"]
-_data = [Vector2(0, 0.342935), 0.0, 0.0, 0, 0, Vector2(0.583799, 0.675), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.342935), 0.0, 0.0, 0, 0, Vector2(0.419162, 0.868132), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_d4w37"]
@@ -19,11 +19,11 @@ inherit_velocity_ratio = 0.238
 velocity_pivot = Vector3(0, 1, 0)
 direction = Vector3(0, -1, 0)
 spread = 16.788
-initial_velocity_min = 40.32
-initial_velocity_max = 58.97
-gravity = Vector3(0, 25, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 38.35
+gravity = Vector3(-30, 20, 0)
 scale_min = 5.0
-scale_max = 12.0
+scale_max = 15.0
 scale_curve = SubResource("CurveTexture_d4w37")
 color_ramp = SubResource("GradientTexture1D_o0687")
 
