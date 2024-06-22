@@ -49,6 +49,8 @@ func _input(event):
 
 # Place the rail on the tilemap
 func place():
+	if(BetterTerrain.get_cell(self, RAILS, tilemap_mouse_coord ) == 3):
+		pass
 	BetterTerrain.set_cell(self, RAILS, tilemap_mouse_coord, 3)
 	BetterTerrain.update_terrain_area(self, RAILS, Rect2i(tilemap_mouse_coord.x, tilemap_mouse_coord.y, tilemap_mouse_coord.x, tilemap_mouse_coord.y) )
 	#var cells = get_surrounding_cells(tilemap_mouse_coord)

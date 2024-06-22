@@ -42,7 +42,7 @@ func _ready():
 		generate_station_area(x)
 		generate_holes(x)
 		generate_obstacles(x)
-		generate_items(x)
+		#generate_items(x)
 	
 func _input(event):
 	pass
@@ -61,7 +61,7 @@ func _process(delta):
 		generate_station_area(x)
 		generate_holes(x)
 		generate_obstacles(x)
-		generate_items(x)
+		#generate_items(x)
 		delete_chunk((chunks_generated-2)*CHUNK_WIDTH)
 		chunks_generated+=1
 		
@@ -75,7 +75,7 @@ func generate_holes(x_offset):
 		for x in range(x_offset + hole_x_offset, x_offset + hole_x_offset + hole_width):
 			var coord = Vector2i(x, y)
 			BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
-			BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
+			BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
 		
 func delete_chunk(x_offset):
 	for x in range(x_offset, x_offset + CHUNK_WIDTH):
@@ -122,15 +122,20 @@ func generate_obstacles(x_offset):
 					if (roll(0.2)):
 						tilemap.set_cell(OBSTACLES, coord, 0, ROCK_COORD, 0)
 						BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
-						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
+						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y))
 						remaining_obstacles -= 1
 					
 					# 5% chance of spawning a rail
 					elif (roll(0.05)):
-						tilemap.set_cell(RAILS, coord, 0, RAIL_COORD, 0)
-						tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
-						tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)	
-						
+						#tilemap.set_cell(RAILS, coord, 0, RAIL_COORD, 0)
+						#tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
+						#tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)	
+						BetterTerrain.set_cell(tilemap, RAILS, coord, 3)
+						BetterTerrain.update_terrain_area(tilemap, RAILS, Rect2i(coord.x, coord.y, coord.x, coord.y) )
+						#var cells = get_surrounding_cells(tilemap_mouse_coord)
+
+						BetterTerrain.set_cell(tilemap, BOTTOM, coord, 0)
+						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x, coord.y, coord.x, coord.y) )
 					#elif (roll(0.2)):
 						#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
 						#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
