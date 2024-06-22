@@ -40,6 +40,7 @@ func _ready():
 	for x in range(16, CHUNK_WIDTH * chunks_generated, CHUNK_WIDTH):
 		generate_background(x)
 		generate_station_area(x)
+		generate_holes(x)
 		generate_obstacles(x)
 		generate_items(x)
 	
@@ -58,10 +59,23 @@ func _process(delta):
 		var x = (chunks_generated)*CHUNK_WIDTH
 		generate_background(x)
 		generate_station_area(x)
+		generate_holes(x)
 		generate_obstacles(x)
 		generate_items(x)
 		delete_chunk((chunks_generated-2)*CHUNK_WIDTH)
 		chunks_generated+=1
+		
+func generate_holes(x_offset):
+	var hole_height = rng.randi_range(0, 2)
+	var hole_y_offset = rng.randi_range(0, CHUNK_HEIGHT - hole_height)
+	
+	for y in range(y_offset + hole_y_offset, y_offset + hole_y_offset + hole_height):	
+		var hole_width = rng.randi_range(2, 5)
+		var hole_x_offset = rng.randi_range(0, floor(hole_width / 2))
+		for x in range(x_offset + hole_x_offset, x_offset + hole_x_offset + hole_width):
+			var coord = Vector2i(x, y)
+			BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
+			BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
 		
 func delete_chunk(x_offset):
 	for x in range(x_offset, x_offset + CHUNK_WIDTH):
@@ -98,7 +112,7 @@ func generate_obstacles(x_offset):
 		# 60% chance of a column spawning obstacles
 		if (roll(0.6)):
 			# Prevent an impossible column of rocks
-			var remaining_obstacles = CHUNK_HEIGHT - 1
+			var remaining_obstacles = 1
 			
 			for y in range(y_offset, y_offset + CHUNK_HEIGHT):
 				var coord = Vector2i(x, y)
@@ -117,9 +131,9 @@ func generate_obstacles(x_offset):
 						tilemap.set_cell(BOTTOM, coord, 0, GROUND_COORD, 0)
 						tilemap.set_cells_terrain_connect(BOTTOM, [coord], 0, 1)	
 						
-					elif (roll(0.2)):
-						BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
-						BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
+					#elif (roll(0.2)):
+						#BetterTerrain.set_cell(tilemap, BOTTOM, coord, 2)
+						#BetterTerrain.update_terrain_area(tilemap, BOTTOM, Rect2i(coord.x-1, coord.y-1, coord.x+1, coord.y+1))
 
 # Returns if the function wins or loses
 # Based on the chance 0.00 to 1.00 (0% to 100%)
