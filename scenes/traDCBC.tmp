@@ -32,7 +32,6 @@ script = ExtResource("1_4pwvg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_lyyk8")
-position = Vector2(21, 0)
 sprite_frames = SubResource("SpriteFrames_4uevb")
 autoplay = "default"
 frame_progress = 0.321499

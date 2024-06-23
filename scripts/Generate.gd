@@ -70,12 +70,9 @@ func _process(delta):
 	var off_pos = get_node("/root/World/Train").position.x - get_node("/root/World/Train").starting_offset
 	if tilemap.position.x + (chunks_generated-1)*(CHUNK_WIDTH)*24 <= 0:
 		if(partial_chunk>=CHUNK_WIDTH and chunks_generated > 2):
-
-			#chunks_generated = 1
+			chunks_generated = 1
 			partial_chunk = 0
-			#tilemap.position.x = 0
-			#time = 0
-		##
+			tilemap.position.x = 0
 		chunk_ground = []
 		chunk_rails = []
 		chunk_station = []
@@ -108,14 +105,14 @@ func _process(delta):
 		render_partial_chunk(chunk_obstacles, partial_chunk, OBSTACLES, false)
 		delete_partial_chunk(partial_chunk-2 + (chunks_generated-2)*CHUNK_WIDTH)
 		delete_partial_chunk(partial_chunk-2 + (chunks_generated)*CHUNK_WIDTH)
-		#if(chunks_generated>2):
-			#var temp = chunks_generated
-			#chunks_generated = 1
-			#render_partial_chunk(chunk_ground, partial_chunk-1, BOTTOM, true)
-			#render_partial_chunk(chunk_station, partial_chunk-1, STATION, false)
-			#render_partial_chunk(chunk_rails, partial_chunk-1, RAILS, true)
-			#render_partial_chunk(chunk_obstacles, partial_chunk, OBSTACLES, false)
-			#chunks_generated = temp
+		if(chunks_generated>2):
+			var temp = chunks_generated
+			chunks_generated = 1
+			render_partial_chunk(chunk_ground, partial_chunk-1, BOTTOM, true)
+			render_partial_chunk(chunk_station, partial_chunk-1, STATION, false)
+			render_partial_chunk(chunk_rails, partial_chunk-1, RAILS, true)
+			render_partial_chunk(chunk_obstacles, partial_chunk, OBSTACLES, false)
+			chunks_generated = temp
 		partial_chunk += 1
 		
 func render_partial_chunk(chunk, partial_chunk, layer, connects):
@@ -167,7 +164,7 @@ func generate_items(x_offset):
 	for x in range(x_offset,x_offset + CHUNK_WIDTH,4):
 		var fire_node = fire.instantiate()
 		get_node("/root/World/TileMap").add_child(fire_node)
-		print(fire_node)
+		#print(fire_node)
 		#fire_node.set_position(Vector2(300,100))
 		fire_node.set_position(Vector2((chunks_generated-1)*CHUNK_WIDTH + x*24,24*2.5))
 # Generate the background of the game

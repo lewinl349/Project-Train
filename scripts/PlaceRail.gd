@@ -5,7 +5,7 @@ const RAILS = 2
 const OBSTACLES = 3
 const UI = 4
 
-const speed = 50
+var speed = 50
 
 const RAIL_COORD = Vector2i(0, 0)
 const MARKER_COORD = Vector2i(2,2)
@@ -16,6 +16,7 @@ const HOLE_COORD = Vector2i(1,11)
 
 
 @onready var tilemap = get_node("/root/World/TileMap")
+@onready var train = get_node("/root/World/Train")
 var previous_coord = Vector2i(0,0)
 # translate global mouse coordinates to tilemap coordinate
 var global_mouse_coord = Vector2i(0,0)
@@ -25,6 +26,7 @@ var tilemap_mouse_coord = Vector2i(0,0)
 var rail_direction = 0;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	speed = train.SPEED
 	var layer_index := 0
 	tile_set.set_occlusion_layer_light_mask(layer_index, tile_set.get_occlusion_layer_light_mask(layer_index))	
 	

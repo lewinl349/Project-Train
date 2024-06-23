@@ -32,11 +32,10 @@ script = ExtResource("1_4pwvg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_lyyk8")
-position = Vector2(21, 0)
 sprite_frames = SubResource("SpriteFrames_4uevb")
 autoplay = "default"
 frame_progress = 0.321499
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(20, 0)
+target_position = Vector2(37, 0)
 collide_with_areas = true

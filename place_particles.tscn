@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjo5or7bau62o"]
+
+[sub_resource type="Curve" id="Curve_23nfy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.174324), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ycxak"]
+curve = SubResource("Curve_23nfy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_562ma"]
+particle_flag_disable_z = true
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = 179.65
+angular_velocity_max = 191.75
+gravity = Vector3(-1.315, 0, 0)
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_ycxak")
+
+[node name="place_particles" type="GPUParticles2D"]
+process_material = SubResource("ParticleProcessMaterial_562ma")
+lifetime = 0.5
+explosiveness = 0.73
