@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cg88cvbjmw5rq"]
 
-[ext_resource type="Texture2D" uid="uid://dpwhhydamhv06" path="res://assets/tiles/UI-icons.png" id="2_3i0r7"]
+[ext_resource type="Texture2D" uid="uid://ccjof8ee638bs" path="res://assets/tiles/UI-icons.png" id="2_3i0r7"]
 [ext_resource type="FontFile" uid="uid://fm8dajqk805p" path="res://assets/fonts/dogicabold.ttf" id="2_ynauu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rld3s"]
@@ -27,6 +27,7 @@ offset_bottom = 24.0
 color = Color(0.142036, 0.12987, 0.13127, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 383.0
