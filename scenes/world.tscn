@@ -1,13 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3ue1rgdgm1ol"]
+[gd_scene load_steps=17 format=3 uid="uid://b3ue1rgdgm1ol"]
 
 [ext_resource type="Script" path="res://scripts/Generate.gd" id="2_chn5o"]
 [ext_resource type="Script" path="res://scripts/PlaceRail.gd" id="2_dwasv"]
 [ext_resource type="PackedScene" uid="uid://dylvjdg046nhu" path="res://scenes/train.tscn" id="2_ym6v3"]
 [ext_resource type="PackedScene" uid="uid://bjpt75c0aw1ao" path="res://scenes/fire.tscn" id="4_abpk0"]
-[ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="4_ppbdj"]
+[ext_resource type="Texture2D" uid="uid://cmvxbkr3rptp0" path="res://assets/tiles/tileset.png" id="4_ppbdj"]
 [ext_resource type="PackedScene" uid="uid://g3x7v48nignf" path="res://scenes/gpu_particles_2d.tscn" id="5_i3hqm"]
-[ext_resource type="Texture2D" uid="uid://psc72rd32agl" path="res://assets/tiles/Screenshot 2024-06-21 121629.png" id="5_uqbub"]
+[ext_resource type="Texture2D" uid="uid://csiulbiuncnn0" path="res://assets/tiles/Screenshot 2024-06-21 121629.png" id="5_uqbub"]
 [ext_resource type="Script" path="res://scripts/Temp Stats.gd" id="9_jh8jg"]
+[ext_resource type="PackedScene" uid="uid://cg88cvbjmw5rq" path="res://scenes/topbar.tscn" id="9_l56te"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lo5nr"]
 
@@ -2273,6 +2274,7 @@ limit_top = 0
 limit_bottom = 216
 
 [node name="Temp Stats" type="Sprite2D" parent="Train/Camera2D"]
+visible = false
 top_level = true
 light_mask = 0
 z_as_relative = false
@@ -2285,3 +2287,5 @@ script = ExtResource("9_jh8jg")
 position = Vector2(21, 0)
 occluder = SubResource("OccluderPolygon2D_xeb6r")
 occluder_light_mask = 31
+
+[node name="Stats" parent="." instance=ExtResource("9_l56te")]

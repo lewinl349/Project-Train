@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cg88cvbjmw5rq"]
 
-[ext_resource type="Texture2D" uid="uid://ccjof8ee638bs" path="res://assets/tiles/UI-icons.png" id="2_3i0r7"]
+[ext_resource type="Texture2D" uid="uid://ccv31qtdfhmkj" path="res://assets/tiles/UI-icons.png" id="2_3i0r7"]
 [ext_resource type="FontFile" uid="uid://fm8dajqk805p" path="res://assets/fonts/dogicabold.ttf" id="2_ynauu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rld3s"]

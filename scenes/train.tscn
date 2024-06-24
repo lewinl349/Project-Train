@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dylvjdg046nhu"]
 
 [ext_resource type="Script" path="res://scripts/Train.gd" id="1_4pwvg"]
-[ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="2_5m76e"]
+[ext_resource type="Texture2D" uid="uid://cmvxbkr3rptp0" path="res://assets/tiles/tileset.png" id="2_5m76e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lyyk8"]
 
