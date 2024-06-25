@@ -14,7 +14,7 @@ const ROCK_COORD = Vector2i(0,2)
 const HOLE_COORD = Vector2i(1,11)
 
 
-
+const RAIL_PLACE_EFF = preload("res://scenes/rail_place_eff.tscn")
 @onready var tilemap = get_node("/root/World/TileMap")
 @onready var train = get_node("/root/World/Train")
 var previous_coord = Vector2i(0,0)
@@ -84,3 +84,8 @@ func place():
 		BetterTerrain.set_cell(self, BOTTOM, offest_tilemap_mouse_coord, 0)
 		BetterTerrain.update_terrain_area(self, BOTTOM, Rect2i(offest_tilemap_mouse_coord.x, offest_tilemap_mouse_coord.y, offest_tilemap_mouse_coord.x, offest_tilemap_mouse_coord.y) )
 	
+	var place_eff = RAIL_PLACE_EFF.instantiate()
+	place_eff.position.x = tilemap_mouse_coord.x *24 + 12
+	place_eff.position.y = tilemap_mouse_coord.y *24 + 12
+	place_eff.emitting = true
+	add_child(place_eff)

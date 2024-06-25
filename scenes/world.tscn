@@ -1,14 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3ue1rgdgm1ol"]
+[gd_scene load_steps=19 format=3 uid="uid://b3ue1rgdgm1ol"]
 
+[ext_resource type="Shader" path="res://scripts/world.gdshader" id="1_n42p8"]
 [ext_resource type="Script" path="res://scripts/Generate.gd" id="2_chn5o"]
 [ext_resource type="Script" path="res://scripts/PlaceRail.gd" id="2_dwasv"]
 [ext_resource type="PackedScene" uid="uid://dylvjdg046nhu" path="res://scenes/train.tscn" id="2_ym6v3"]
 [ext_resource type="PackedScene" uid="uid://bjpt75c0aw1ao" path="res://scenes/fire.tscn" id="4_abpk0"]
-[ext_resource type="Texture2D" uid="uid://cmvxbkr3rptp0" path="res://assets/tiles/tileset.png" id="4_ppbdj"]
+[ext_resource type="Texture2D" uid="uid://bvhdxbkro6yi" path="res://assets/tiles/tileset.png" id="4_ppbdj"]
 [ext_resource type="PackedScene" uid="uid://g3x7v48nignf" path="res://scenes/gpu_particles_2d.tscn" id="5_i3hqm"]
-[ext_resource type="Texture2D" uid="uid://csiulbiuncnn0" path="res://assets/tiles/Screenshot 2024-06-21 121629.png" id="5_uqbub"]
-[ext_resource type="Script" path="res://scripts/Temp Stats.gd" id="9_jh8jg"]
-[ext_resource type="PackedScene" uid="uid://cg88cvbjmw5rq" path="res://scenes/topbar.tscn" id="9_l56te"]
+[ext_resource type="PackedScene" uid="uid://bfreymkol0e7q" path="res://scenes/topbar.tscn" id="9_l56te"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrn0b"]
+shader = ExtResource("1_n42p8")
+shader_parameter/first_color = Color(1, 0.207843, 1, 1)
+shader_parameter/second_color = Color(0, 0.784314, 0, 1)
+shader_parameter/position = 0.212
+shader_parameter/size = 1.11
+shader_parameter/angle = 0.485
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lo5nr"]
 
@@ -2207,12 +2214,123 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xeb6r"]
-polygon = PackedVector2Array(-16, 10, -16, 12, -6, 12, -6, 10, 8, 10, 7.98296, 12, 18, 12, 18, 10, 20, 10, 20, 9, 22, 9, 22, -2, 20, -2, 20, -6, 16, -6, 16, -11, 9, -11, 9, -6, -1, -6, -1, -10, -21, -10, -21, 3, -19, 3, -19, 10)
+[sub_resource type="Animation" id="Animation_xmwpl"]
+resource_name = "on_dirt"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(4.515, 4.515)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-69, -122), Vector2(-47, -87)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.16057]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d43i4"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-69, -122)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.123918]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(3.705, 3.705)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrbgd"]
+_data = {
+"RESET": SubResource("Animation_d43i4"),
+"on_dirt": SubResource("Animation_xmwpl")
+}
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_wrn0b")
+use_parent_material = true
 tile_set = SubResource("TileSet_uqbx1")
 rendering_quadrant_size = 24
 navigation_visibility_mode = 2
@@ -2224,7 +2342,7 @@ layer_1/tile_data = PackedInt32Array(131070, 65536, 3, 131071, 65536, 3, 196606,
 layer_2/name = "Rails"
 layer_2/tile_data = PackedInt32Array(327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 1, 327681, 0, 0, 327680, 0, 0, 393215, 0, 0, 393214, 65536, 1)
 layer_3/name = "Obstacles"
-layer_3/z_index = 1
+layer_3/y_sort_enabled = true
 layer_3/tile_data = PackedInt32Array(393222, 0, 2, 458753, 0, 2, 458754, 0, 2, 524300, 0, 2, 262154, 0, 2)
 layer_4/name = "UI"
 layer_4/tile_data = PackedInt32Array()
@@ -2261,31 +2379,26 @@ position = Vector2(1209.05, 56.1092)
 position = Vector2(789, 56)
 
 [node name="Train" parent="." instance=ExtResource("2_ym6v3")]
+z_index = 1
+z_as_relative = true
 position = Vector2(69, 125)
 
 [node name="SmokeEffect" parent="Train" instance=ExtResource("5_i3hqm")]
-position = Vector2(12, -9)
+position = Vector2(33, -9)
 
 [node name="Camera2D" type="Camera2D" parent="Train"]
 position = Vector2(-69, -122)
+scale = Vector2(5.28, 5.28)
 anchor_mode = 0
+ignore_rotation = false
 zoom = Vector2(3, 3)
 limit_top = 0
 limit_bottom = 216
 
-[node name="Temp Stats" type="Sprite2D" parent="Train/Camera2D"]
-visible = false
-top_level = true
-light_mask = 0
-z_as_relative = false
-position = Vector2(192, 12)
-scale = Vector2(0.267316, 0.267316)
-texture = ExtResource("5_uqbub")
-script = ExtResource("9_jh8jg")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Train"]
-position = Vector2(21, 0)
-occluder = SubResource("OccluderPolygon2D_xeb6r")
-occluder_light_mask = 31
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Train/Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_nrbgd")
+}
 
 [node name="Stats" parent="." instance=ExtResource("9_l56te")]
+scale = Vector2(1, 1)

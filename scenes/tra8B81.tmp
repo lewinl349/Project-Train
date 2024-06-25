@@ -55,7 +55,4 @@ occluder = SubResource("OccluderPolygon2D_t3ssw")
 occluder_light_mask = 31
 
 [node name="GPUParticles2D" parent="." instance=ExtResource("3_n6r4r")]
-position = Vector2(33, 11)
-
-[node name="GPUParticles2D2" parent="." instance=ExtResource("3_n6r4r")]
-position = Vector2(6, 11)
+position = Vector2(5, 11)

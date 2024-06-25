@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://5rsdey3ppw88"]
+
+[ext_resource type="Script" path="res://scripts/dirt_trail.gd" id="1_tw4q2"]
+
+[node name="ColorRect" type="ColorRect"]
+offset_bottom = 2.0
+rotation = 3.14159
+color = Color(0.0352941, 0.0352941, 0.0352941, 0.784314)
+script = ExtResource("1_tw4q2")
